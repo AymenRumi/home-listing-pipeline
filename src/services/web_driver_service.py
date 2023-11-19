@@ -2,7 +2,6 @@ from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 
 
-
 def get_driver():
     op = webdriver.ChromeOptions()
     op.add_argument("headless")

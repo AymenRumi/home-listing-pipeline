@@ -67,7 +67,7 @@ class RemaxExecutor:
             #     result,
             #     f"output_{'concurrent' if self.concurrent else 'sequential'}.json",
             # )
-            write_to_json_local(result,filename)
+            write_to_json_local(result, filename)
 
         return result
 
