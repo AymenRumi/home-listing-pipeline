@@ -5,17 +5,16 @@ from concurrent.futures import ThreadPoolExecutor
 
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
+from src.services.fileio_service import write_to_json_local
 from src.util.logging import logger
 
-from src.services.fileio_service import write_to_json_local
-from src.services.web_driver_service import HTMLStackParser, get_driver
+from dags.plugins.services.crawer_service import HTMLStackParser, get_driver
 
 
 class RemaxExecutor:
     def __init__(
         self, concurrent: bool = True, max_workers: int = multiprocessing.cpu_count()
     ):
-
         self.concurrent = concurrent
         self.max_workers = max_workers
 
@@ -165,7 +164,7 @@ class WebCrawler:
 
     def _get_listing_location(self):
 
-        parsed_element = HTMLStackParser().parse_web_element(
+        parsed_element = HTMLStackParser.parse_web_element(
             self.driver.find_element(
                 By.CLASS_NAME, "listing-summary_addressAgentWrapper__0H3ys"
             )

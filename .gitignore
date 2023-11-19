@@ -171,3 +171,6 @@ mlruns/
 
 # semantic kernel tmp file
 .semantic-kernel/*
+
+
+pgdata/
