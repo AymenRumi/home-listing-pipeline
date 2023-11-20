@@ -7,7 +7,7 @@ from colorlog import ColoredFormatter
 TASK_LEVEL = 25
 logging.addLevelName(TASK_LEVEL, "TASK")
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("airflow.task")
 
 
 stream = logging.StreamHandler()

@@ -8,7 +8,7 @@ from selenium.webdriver.common.by import By
 from src.services.fileio_service import write_to_json_local
 from src.util.logging import logger
 
-from dags.plugins.services.crawer_service import HTMLStackParser, get_driver
+from dags.plugins.services.web_crawer_service import HTMLStackParser, get_driver
 
 
 class RemaxExecutor:
