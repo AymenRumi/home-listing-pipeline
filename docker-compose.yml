@@ -40,7 +40,7 @@ services:
         max-file: "3"
     volumes:
       - ./dags:/usr/local/airflow/dags
-      - ./config/airflow.cfg:/usr/local/airflow/airflow.cfg
+      - .dags/config/airflow.cfg:/usr/local/airflow/airflow.cfg
     ports:
       - "8080:8080"
     command: webserver
