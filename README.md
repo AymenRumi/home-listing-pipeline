@@ -8,7 +8,7 @@ This project implements a high-performance `Airflow` data pipeline for scraping 
 
 ##  Key Features:
 
-> This projects is an end-to-end deployed ETL pipeline using Data Engineering and DevOps best practice with major considerations for efficiency and scalability.
+> This projects is an end-to-end deployed ETL pipeline using Data Engineering and DevOps best practice with considerations for efficiency and scalability.
 
 * **Multithreaded Scraping** Utilizes multiple threads to scrape home listings concurrently, significantly speeding up the process.
 * **Parallel Processing**: Employs Airflow's Celery Executor with Redis to scrape chunks of pages in parallel.
