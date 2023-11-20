@@ -7,7 +7,7 @@ This project implements a high-performance Airflow data pipeline for scraping ho
 
 
 ##  Key Features:
-* <b>Multithreaded Scraping</b>: Utilizes multiple threads to scrape home listings concurrently, significantly speeding up the process.
+* **Multithreaded Scraping** Utilizes multiple threads to scrape home listings concurrently, significantly speeding up the process.
 * Parallel Page Processing: Employs Airflow's Celery Executor with Redis to scrape multiple pages in parallel.
 * Data Contract: Implements a data contract for validating scraped data before storage.
 * PostgreSQL Integration: Stores validated data in a PostgreSQL database.
