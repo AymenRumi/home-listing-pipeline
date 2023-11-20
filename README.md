@@ -16,15 +16,18 @@ This project implements a high-performance Airflow data pipeline for scraping ho
 * **CD with GitHub Actions**: Automated deployment and integration using GitHub Actions.
 * **Infrastructure as Code**: Uses Terraform for creating and managing infrastructure.
 
+
 ## Folder Structure
 
-Automated tests are usually placed into the `test` or, less commonly, into the `spec` or `tests` folder.
     .
-    ├── ...
-    ├── test                    # Test files (alternatively `spec` or `tests`)
-    │   ├── benchmarks          # Load and stress tests
-    │   ├── integration         # End-to-end, integration tests (alternatively `e2e`)
-    │   └── unit                # Unit tests
-    └── ...
+    ├── build                   # Compiled files (alternatively `dist`)
+    ├── docs                    # Documentation files (alternatively `doc`)
+    ├── src                     # Source files (alternatively `lib` or `app`)
+    ├── test                    # Automated tests (alternatively `spec` or `tests`)
+    ├── tools                   # Tools and utilities
+    ├── LICENSE
+    └── README.md
 
+> Use short lowercase names at least for the top-level files and folders except
+> `LICENSE`, `README.md`
 
