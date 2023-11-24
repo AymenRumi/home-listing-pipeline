@@ -3,8 +3,7 @@
 
 ## Project Overview:
 
-This project implements a high-performance `Airflow` data pipeline for scraping home listings from [remax.com](https://www.remax.com/). It leverages Selenium for web scraping and employs a `multithreaded` approach to enhance the scraping speed. The pipeline is designed to scrape pages in `parallel` using Airflow's `Celery Executor` backed by `Redis`.
-
+This project is a scalable web scraping and ETL (Extract, Transform, Load) solution, designed to scrape real estate data from REMAX. It leverages `Celery`, an asynchronous task queue, in conjunction with `RabbitMQ` as the message broker. The workers, implemented with `multithreaded` selenium drivers, allow for parallel scraping of multiple pages of the REMAX website. The extracted data undergoes transformation and validation based on a predefined `data contract` before being stored in an `SQL database`.
 
 ##  Key Features:
 
