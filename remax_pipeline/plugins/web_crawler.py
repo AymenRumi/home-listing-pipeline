@@ -6,9 +6,8 @@ from concurrent.futures import ThreadPoolExecutor
 from dags.plugins.services.web_crawer_service import HTMLStackParser, get_driver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
-from util.slogging import logger
-
 from services.fileio_service import write_to_json_local
+from util.slogging import logger
 
 
 class RemaxExecutor:
