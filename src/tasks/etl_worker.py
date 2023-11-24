@@ -1,7 +1,4 @@
-from src import app
-from src.pipe import Extract, Load, Validate
+def run(pages: list):
+    pass
 
-
-@app.task
-def run_etl_worker(pages: list):
-    Load().push_to_db(Validate().run_data_contract(Extract().get_listing_data(pages)))
+    # Load().push_to_db(Validate().run_data_contract(Extract().get_listing_data(pages)))
