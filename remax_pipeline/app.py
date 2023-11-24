@@ -1,7 +1,8 @@
 import os
 
 from celery import Celery
-from src.utils.logging import logger
+
+from remax_pipeline.utils.logging import logger
 
 app = Celery("app", broker="pyamqp://myuser:mypassword@localhost:5672//")
 

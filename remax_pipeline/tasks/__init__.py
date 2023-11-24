@@ -1,1 +1,1 @@
-from src.tasks.etl_worker import run_etl_worker
+from remax_pipeline.tasks.etl_worker import run_etl_worker

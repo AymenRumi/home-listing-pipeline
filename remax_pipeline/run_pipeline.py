@@ -1,4 +1,4 @@
-from src.main import run_etl_worker
+from remax_pipeline.app import run_etl_worker
 
 if __name__ == "__main__":
 

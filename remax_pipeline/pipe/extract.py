@@ -1,6 +1,7 @@
 class Extract:
-    def __init__(self, pages: list) -> None:
+    def __init__(self) -> None:
         pass
 
-    def get_listing_data(self):
+    @classname
+    def get_listing_data(self, pages:list) -> dict:
         pass
