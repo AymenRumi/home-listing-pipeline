@@ -3,7 +3,7 @@
 
 ## Project Overview:
 
-This project is a scalable `web scraping` `ETL` (Extract, Transform, Load) solution, designed to scrape real estate data from REMAX. It leverages `Celery`, an asynchronous task queue, in conjunction with `RabbitMQ` as the message broker. The workers, implemented with `multithreaded` selenium web drivers, allow for parallel and multithreaded scraping of multiple pages of the REMAX website. The extracted data undergoes transformation and validation based on a predefined `data contract` before being stored in an `SQL database` for long term analytics. This project is build as a  `PyPI` package to pip install and use to automate the ETL process via scheduled job and deploying celery workers.
+This project is a scalable and efficient `web scraping` `ETL` (Extract, Transform, Load) solution, designed to scrape real estate data from REMAX. It leverages `Celery`, an asynchronous task queue, in conjunction with `RabbitMQ` as the message broker. The workers, implemented with `multithreaded` selenium web drivers, allow for parallel and multithreaded scraping of multiple pages of the REMAX website. The extracted data undergoes transformation and validation based on a predefined `data contract` before being stored in an `SQL database` for long term analytics. This project is build as a  `PyPI` package to pip install and use to automate the ETL process via scheduled job and deploying celery workers.
 
 
 
