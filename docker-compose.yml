@@ -1,159 +1,20 @@
 version: '3.7'
-services:
 
-  redis:
-    image: redis:5.0.5
+services:
+  rabbitmq:
+    image: "rabbitmq:3-management"
     environment:
-      REDIS_HOST: redis
-      REDIS_PORT: 6379
+      RABBITMQ_DEFAULT_USER: myuser
+      RABBITMQ_DEFAULT_PASS: mypassword
     ports:
-      - 6379:6379
+      - "5672:5672" # RabbitMQ
+      - "15672:15672" # Management interface
 
   postgres:
-    image: postgres:9.6
+    image: postgres
+    # volumes:
+    #   - db-data:/var/lib/postgresql/data
     environment:
-      - POSTGRES_USER=airflow
-      - POSTGRES_PASSWORD=airflow
-      - POSTGRES_DB=airflow
-      - PGDATA=/var/lib/postgresql/data/pgdata
-    volumes:
-      - ./pgdata:/var/lib/postgresql/data/pgdata
-    logging:
-      options:
-        max-size: 10m
-        max-file: "3"
-
-  webserver:
-    # image: puckel/docker-airflow:latest
-    build: .
-    restart: always
-    depends_on:
-      - postgres
-      - redis
-    environment:
-      - LOAD_EX=n
-      - FERNET_KEY=46BKJoQYlPPOexq0OhDZnIlNepKFf87WFwLbfzqDDho=
-      - EXECUTOR=Celery
-    logging:
-      options:
-        max-size: 10m
-        max-file: "3"
-    volumes:
-      - ./dags:/usr/local/airflow/dags
-      - .dags/config/airflow.cfg:/usr/local/airflow/airflow.cfg
-    ports:
-      - "8080:8080"
-    command: webserver
-    healthcheck:
-      test: ["CMD-SHELL", "[ -f /usr/local/airflow/airflow-webserver.pid ]"]
-      interval: 30s
-      timeout: 30s
-      retries: 3
-
-  flower:
-    build: .
-    restart: always
-    depends_on:
-      - redis
-    environment:
-      - EXECUTOR=Celery
-    ports:
-      - "5555:5555"
-    command: flower
-
-  scheduler:
-    build: .
-    restart: always
-    depends_on:
-      - webserver
-    volumes:
-      - ./dags:/usr/local/airflow/dags
-    environment:
-      - LOAD_EX=n
-      - FERNET_KEY=46BKJoQYlPPOexq0OhDZnIlNepKFf87WFwLbfzqDDho=
-      - EXECUTOR=Celery
-    command: scheduler
-
-  worker:
-    build: .
-    restart: always
-    depends_on:
-      - scheduler
-    volumes:
-      - ./dags:/usr/local/airflow/dags
-    environment:
-      - FERNET_KEY=46BKJoQYlPPOexq0OhDZnIlNepKFf87WFwLbfzqDDho=
-      - EXECUTOR=Celery
-    command: worker
-
-# version: '3.7'
-# services:
-
-#   redis:
-#     image: redis:5.0.5
-#     ports:
-#       - 6379:6379
-
-#   postgres:
-#     image: postgres:9.6
-#     environment:
-#       - POSTGRES_USER=airflow
-#       - POSTGRES_PASSWORD=airflow
-#       - POSTGRES_DB=airflow
-#       - PGDATA=/var/lib/postgresql/data/pgdata
-#     volumes:
-#       - ./pgdata:/var/lib/postgresql/data/pgdata
-
-#   webserver:
-#     build: .
-#     restart: always
-#     depends_on:
-#       - postgres
-#       - redis
-#     environment:
-#       - LOAD_EX=n
-#       - FERNET_KEY=46BKJoQYlPPOexq0OhDZnIlNepKFf87WFwLbfzqDDho=
-#       - EXECUTOR=Celery
-#     volumes:
-#       - ./dags:/usr/local/airflow/dags
-#       - ./config/airflow.cfg:/usr/local/airflow/airflow.cfg
-#     ports:
-#       - "8080:8080"
-#     command: 
-#       airflow db upgradeairflow webserver
-
-#   flower:
-#     build: .
-#     restart: always
-#     depends_on:
-#       - redis
-#     environment:
-#       - EXECUTOR=Celery
-#     ports:
-#       - "5555:5555"
-#     command: airflow celery flower
-
-#   scheduler:
-#     build: .
-#     restart: always
-#     depends_on:
-#       - webserver
-#     volumes:
-#       - ./dags:/usr/local/airflow/dags
-#     environment:
-#       - LOAD_EX=n
-#       - FERNET_KEY=46BKJoQYlPPOexq0OhDZnIlNepKFf87WFwLbfzqDDho=
-#       - EXECUTOR=Celery
-#     command: airflow scheduler
-
-#   worker:
-#     build: .
-#     restart: always
-#     depends_on:
-#       - scheduler
-#     volumes:
-#       - ./dags:/usr/local/airflow/dags
-#     environment:
-#       - FERNET_KEY=46BKJoQYlPPOexq0OhDZnIlNepKFf87WFwLbfzqDDho=
-#       - EXECUTOR=Celery
-#     command: airflow celery worker
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: remaxpipeline
