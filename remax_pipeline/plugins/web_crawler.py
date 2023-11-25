@@ -18,12 +18,9 @@ class RemaxExecutor:
 
     @staticmethod
     def _create_chunks(n, m):
-        # List to store the chunks
+
         chunks = []
-
-        # Calculate the length of each chunk
         chunk_size = n // m
-
         remainder = n % m
 
         for i in range(0, m):
@@ -37,10 +34,9 @@ class RemaxExecutor:
 
     @staticmethod
     def _create_bins(n, m):
-        # List to store the chunks
+
         chunks = []
 
-        # Generate the chunks
         for i in range(1, n + 1, m):
             chunks.append(list(range(i, min(i + m, n + 1))))
 
