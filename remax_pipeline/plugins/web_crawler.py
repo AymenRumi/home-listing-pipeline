@@ -26,7 +26,7 @@ class RemaxExecutor:
 
         remainder = n % m
 
-        for i in range(m):
+        for i in range(0, m):
             start = i * chunk_size
             end = start + chunk_size
             if i == m - 1:  #
@@ -41,8 +41,8 @@ class RemaxExecutor:
         chunks = []
 
         # Generate the chunks
-        for i in range(0, n, m):
-            chunks.append(list(range(i, min(i + m, n))))
+        for i in range(1, n + 1, m):
+            chunks.append(list(range(i, min(i + m, n + 1))))
 
         return chunks
 
