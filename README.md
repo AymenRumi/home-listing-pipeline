@@ -10,6 +10,11 @@ The library uses `Celery`, an `asynchronous task queue`, in conjunction with `Ra
 This project is published as a  package in `PyPI` to pip install and use to automate the ETL process via scheduled job and deploying celery workers.
 
 
+## Installation
+
+```bash
+pip install remax_pipeline
+```
 <!-- 
 ##  Key Features:
 
