@@ -1,7 +1,5 @@
 from setuptools import find_packages, setup
 
-import versioneer
-
 
 def read_requirements():
     with open("requirements.txt") as req:
@@ -17,8 +15,8 @@ setup(
     long_description_content_type="package to set up data pipeline on aws resources",
     url="https://github.com/AymenRumi/remax-data-pipeline",  # Your project's homepage
     packages=find_packages(),
-    version=versioneer.get_version(),
-    cmdclass=versioneer.get_cmdclass(),
+    version="0.1.0",
+    # cmdclass=versioneer.get_cmdclass(),
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",  # Choose the appropriate license
