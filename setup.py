@@ -15,7 +15,7 @@ setup(
     long_description_content_type="Package to set up data pipeline on AWS resources",
     url="https://github.com/AymenRumi/remax-data-pipeline",  # Your project's homepage
     packages=find_packages(),
-    version="0.1.0",
+    version="0.1.1",
     # cmdclass=versioneer.get_cmdclass(),
     classifiers=[
         "Programming Language :: Python :: 3",
