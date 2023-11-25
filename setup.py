@@ -9,7 +9,7 @@ def read_requirements():
 setup(
     name="remax_pipeline",
     author="Aymen Rumi",
-    author_email='aymen.rumi"mail.mcgill.ca',
+    author_email="aymen.rumi@mail.mcgill.ca",
     description="A short description of your project",
     long_description=open("README.md").read(),
     long_description_content_type="package to set up data pipeline on aws resources",
