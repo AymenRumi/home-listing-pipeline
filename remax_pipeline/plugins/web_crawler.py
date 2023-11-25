@@ -3,18 +3,16 @@ import multiprocessing
 import re
 from concurrent.futures import ThreadPoolExecutor
 
-from dags.plugins.services.web_crawer_service import HTMLStackParser, get_driver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
-from services.fileio_service import write_to_json_local
-from util.slogging import logger
+from remax_pipeline.services.fileio_service import write_to_json_local
+from remax_pipeline.services.selenium_service import get_driver, HTMLStackParser
+from remax_pipeline.utils.logging import logger
 
 
 class RemaxExecutor:
-    def __init__(
-        self, concurrent: bool = True, max_workers: int = multiprocessing.cpu_count()
-    ):
-        self.concurrent = concurrent
+    def __init__(self, multithreaded: bool = True, max_workers: int = multiprocessing.cpu_count()):
+        self.multithreaded = multithreaded
         self.max_workers = max_workers
 
     def get_total_pages(self):
@@ -26,9 +24,7 @@ class RemaxExecutor:
         self.driver.get(url)
 
         total_pages = int(
-            self.driver.find_elements(
-                By.CLASS_NAME, "page-control_buttonRowContainer__wfw6_"
-            )
+            self.driver.find_elements(By.CLASS_NAME, "page-control_buttonRowContainer__wfw6_")
             .find_element(By.TAG_NAME, "a")[-1]
             .find_elements("href")
             .split("pageNumber=")[-1]
@@ -39,7 +35,7 @@ class RemaxExecutor:
         return total_pages
 
     def task(self, page_number):
-        if self.concurrent:
+        if self.multithreaded:
             logger.task(f"Thread - page: {page_number}")
         else:
             logger.task(f"Sequential - page: {page_number}")
@@ -50,7 +46,7 @@ class RemaxExecutor:
 
     def get_multipage_listing(self, pages, output=None, filename=None):
 
-        if self.concurrent:
+        if self.multithreaded:
             logger.task("Running with threads...")
             with ThreadPoolExecutor(max_workers=self.max_workers) as executor:
                 result = executor.map(self.task, pages)
@@ -63,7 +59,7 @@ class RemaxExecutor:
         if output:
             # write_to_json_local(
             #     result,
-            #     f"output_{'concurrent' if self.concurrent else 'sequential'}.json",
+            #     f"output_{'multithreadeded' if self.multithreadeded else 'sequential'}.json",
             # )
             write_to_json_local(result, filename)
 
@@ -92,18 +88,14 @@ class WebCrawler:
 
         logger.info("Creating page instance")
         self.driver = get_driver()
-        self.listing_link = (
-            f"https://www.remax.ca/on/toronto-real-estate?pageNumber={page_number}"
-        )
+        self.listing_link = f"https://www.remax.ca/on/toronto-real-estate?pageNumber={page_number}"
 
     def crawl(self, location="Toronto"):
         self.driver.get(self.listing_link)
 
         listings = [
             element.get_attribute("href")
-            for element in self.driver.find_elements(
-                By.CLASS_NAME, "listing-card_listingCard__G6M8g"
-            )
+            for element in self.driver.find_elements(By.CLASS_NAME, "listing-card_listingCard__G6M8g")
         ]
         logger.info(listings)
         result = [self.get_listing_data(i) for i in listings]
@@ -136,14 +128,10 @@ class WebCrawler:
 
     def _get_listing_description(self):
 
-        elements = self.driver.find_elements(
-            By.XPATH, '//*[@id="description"]/summary/p'
-        )
+        elements = self.driver.find_elements(By.XPATH, '//*[@id="description"]/summary/p')
 
         try:
-            return self.driver.find_element(
-                By.XPATH, '//*[@id="description"]/summary/p'
-            ).text
+            return self.driver.find_element(By.XPATH, '//*[@id="description"]/summary/p').text
         except NoSuchElementException:
             return None
 
@@ -159,24 +147,18 @@ class WebCrawler:
                 **self._get_listing_price_details(),
             }
         except Exception as e:
-            logger.warning(e)
-            return None
+            logger.warning(f"{e}, {url}")
+            return {}
 
     def _get_listing_location(self):
 
         parsed_element = HTMLStackParser.parse_web_element(
-            self.driver.find_element(
-                By.CLASS_NAME, "listing-summary_addressAgentWrapper__0H3ys"
-            )
+            self.driver.find_element(By.CLASS_NAME, "listing-summary_addressAgentWrapper__0H3ys")
         )
 
-        lat = self.driver.find_element(By.XPATH, "/html/head/meta[10]").get_attribute(
-            "content"
-        )
+        lat = self.driver.find_element(By.XPATH, "/html/head/meta[10]").get_attribute("content")
 
-        lon = self.driver.find_element(By.XPATH, "/html/head/meta[11]").get_attribute(
-            "content"
-        )
+        lon = self.driver.find_element(By.XPATH, "/html/head/meta[11]").get_attribute("content")
 
         return {"address": " ".join(parsed_element), "lat": lat, "lon": lon}
 
@@ -188,9 +170,7 @@ class WebCrawler:
 
         parsed_element = self._clean_web_element(
             HTMLStackParser.parse_web_element(
-                self.driver.find_element(
-                    By.CLASS_NAME, "listing-summary_priceDetailsWrapper__z_9hg"
-                )
+                self.driver.find_element(By.CLASS_NAME, "listing-summary_priceDetailsWrapper__z_9hg")
             )
         )
 

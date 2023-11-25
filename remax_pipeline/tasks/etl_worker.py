@@ -1,4 +1,5 @@
-def run(pages: list):
-    pass
+from remax_pipeline.pipe import Extract, Validate, Load
 
-    # Load().push_to_db(Validate().run_data_contract(Extract().get_listing_data(pages)))
+
+def start_worker(pages: list):
+    return Extract.get_listing_data(pages=pages, multithreaded=True)
