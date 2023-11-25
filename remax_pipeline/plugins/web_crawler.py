@@ -17,31 +17,48 @@ class RemaxExecutor:
         self.max_workers = max_workers
 
     @staticmethod
-    def _create_chunks():
-        pass
-
-    @staticmethod
-    def _create_bins():
-        pass
-
-    def get_distributed_workload(self, total_tasks: int = 12):
-
-        total_pages = self.get_total_pages()
-
+    def _create_chunks(n, m):
+        # List to store the chunks
         chunks = []
 
-        chunk_size = total_pages // total_tasks
+        # Calculate the length of each chunk
+        chunk_size = n // m
 
-        remainder = total_pages % total_tasks
+        remainder = n % m
 
-        for i in range(total_tasks):
+        for i in range(m):
             start = i * chunk_size
             end = start + chunk_size
-            if i == total_tasks - 1:  #
+            if i == m - 1:  #
                 end += remainder
             chunks.append(list(range(start + 1, end + 1)))
 
         return chunks
+
+    @staticmethod
+    def _create_bins(n, m):
+        # List to store the chunks
+        chunks = []
+
+        # Generate the chunks
+        for i in range(0, n, m):
+            chunks.append(list(range(i, min(i + m, n))))
+
+        return chunks
+
+    def get_distributed_workload(self, m: int = 12, type: str = "bin"):
+
+        if type not in ["bin", "chunk"]:
+            raise Exception("Distribution type should be either 'bin' or 'chunk")
+
+        total_pages = self.get_total_pages()
+
+        action = {
+            "bin": RemaxExecutor._create_bins,
+            "chunk": RemaxExecutor._create_chunks,
+        }
+
+        return action(total_pages, m)
 
     def get_total_pages(self):
 
