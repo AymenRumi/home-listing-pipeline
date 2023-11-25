@@ -10,12 +10,12 @@ setup(
     name="remax_pipeline",
     author="Aymen Rumi",
     author_email="aymen.rumi@mail.mcgill.ca",
-    description="A Python package designed for scraping data from Remax, enabling local use and integration with Celery for deploying ETL workers. It supports multiple multithreaded pipeline tasks for efficient data processing on Celery worker servers.",
+    description="A Python package designed for scraping data from Remax, enabling local use and integration with Celery for handling ETL workers tasks.",
     long_description="""# Markdown supported!\n\n* Cheer\n* Celebrate\n""",
     long_description_content_type="text/markdown",
     url="https://github.com/AymenRumi/remax-data-pipeline",  # Your project's homepage
     packages=find_packages(),
-    version="0.1.13",
+    version="0.1.14",
     # cmdclass=versioneer.get_cmdclass(),
     classifiers=[
         "Programming Language :: Python :: 3",
