@@ -16,7 +16,7 @@ class CustomEncoder(json.JSONEncoder):
 
 def write_to_json_local(result, filename: str):
 
-    path = Path(os.getcwd()) / filename
+    path = Path(f"{os.getcwd()}/temp") / filename
     json_str = json.dumps(result, cls=CustomEncoder)
 
     with path.open("w") as json_file:

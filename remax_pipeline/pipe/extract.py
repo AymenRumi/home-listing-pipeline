@@ -2,11 +2,12 @@ from remax_pipeline.plugins.web_crawler import RemaxExecutor
 
 
 class Extract:
-    def __init__(self) -> None:
-        pass
-
     @classmethod
-    def get_listing_data(self, pages: list, multithreaded: bool) -> dict:
+    def get_listing_data(cls, pages: list, multithreaded: bool) -> list:
         RemaxExecutor(multithreaded=multithreaded).get_multipage_listing(
             pages=pages, output=True, filename="output_1.json"
         )
+
+    @classmethod
+    def get_total_pages(cls) -> int:
+        return RemaxExecutor().get_total_pages()

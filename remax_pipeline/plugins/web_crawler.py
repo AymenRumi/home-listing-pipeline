@@ -16,6 +16,33 @@ class RemaxExecutor:
         self.multithreaded = multithreaded
         self.max_workers = max_workers
 
+    @staticmethod
+    def _create_chunks():
+        pass
+
+    @staticmethod
+    def _create_bins():
+        pass
+
+    def get_distributed_workload(self, total_tasks: int = 12):
+
+        total_pages = self.get_total_pages()
+
+        chunks = []
+
+        chunk_size = total_pages // total_tasks
+
+        remainder = total_pages % total_tasks
+
+        for i in range(total_tasks):
+            start = i * chunk_size
+            end = start + chunk_size
+            if i == total_tasks - 1:  #
+                end += remainder
+            chunks.append(list(range(start + 1, end + 1)))
+
+        return chunks
+
     def get_total_pages(self):
 
         self.driver = get_driver()
@@ -25,9 +52,9 @@ class RemaxExecutor:
         self.driver.get(url)
 
         total_pages = int(
-            self.driver.find_elements(By.CLASS_NAME, "page-control_buttonRowContainer__wfw6_")
-            .find_element(By.TAG_NAME, "a")[-1]
-            .find_elements("href")
+            self.driver.find_element(By.CLASS_NAME, "page-control_buttonRowContainer__wfw6_")
+            .find_elements(By.TAG_NAME, "a")[-1]
+            .get_attribute("href")
             .split("pageNumber=")[-1]
         )
 
