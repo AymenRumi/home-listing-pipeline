@@ -1,4 +1,4 @@
-from remax_pipeline.plugins.web_crawler import RemaxExecutor
+from ..plugins.web_crawler import RemaxExecutor
 
 
 class Extract:

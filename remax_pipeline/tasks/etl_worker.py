@@ -1,4 +1,4 @@
-from remax_pipeline.pipe import Extract
+from ..pipe import Extract
 
 
 def start_worker(pages: list):

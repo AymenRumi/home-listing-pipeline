@@ -6,9 +6,9 @@ from concurrent.futures import ThreadPoolExecutor
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 
-from remax_pipeline.services.fileio_service import write_to_json_local
-from remax_pipeline.services.selenium_service import HTMLStackParser, get_driver
-from remax_pipeline.utils.logging import logger
+from ..services.fileio_service import write_to_json_local
+from ..services.selenium_service import HTMLStackParser, get_driver
+from ..utils.logging import logger
 
 
 class RemaxExecutor:

@@ -1,6 +1,6 @@
 from celery import Celery
 
-from remax_pipeline.tasks.etl_worker import start_worker
+from .tasks.etl_worker import start_worker
 
 celery_app = Celery("app", broker="pyamqp://myuser:mypassword@localhost:5672//")
 

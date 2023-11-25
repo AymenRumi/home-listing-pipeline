@@ -1,4 +1,4 @@
-from remax_pipeline.celery_app import run_etl_worker
+from .celery_app import run_etl_worker
 
 
 def run(dev: bool = False):
