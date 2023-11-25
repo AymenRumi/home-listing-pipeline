@@ -3,11 +3,14 @@
 
 ## Project Overview
 
-This project is `python library` used to implement an efficient `web scraping` `ETL` (Extract, Transform, Load) solution. [here](https://pypi.org/project/remax-pipeline/)
+This project is `python library` used to implement an efficient `web scraping` `ETL` (Extract, Transform, Load) solution. 
+
+This project is published as a  package in `PyPI` to pip install and use to automate the ETL process via scheduled job and deploying celery workers.
+
+Click [here](https://pypi.org/project/remax-pipeline/) to view package.
 
 The library uses `Celery`, an `asynchronous task queue`, in conjunction with `RabbitMQ` as a message broker. The workers, implemented with `multithreaded` selenium web drivers, allow for parallel celery workers running multithreaded scraping of listings from the REMAX website. The extracted data undergoes transformation and validation based on a predefined `data contract` before being stored in an `SQL database` for long term analytics. 
 
-This project is published as a  package in `PyPI` to pip install and use to automate the ETL process via scheduled job and deploying celery workers.
 
 
 ## Installation
