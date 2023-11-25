@@ -1,8 +1,10 @@
 import json
 import os
 from pathlib import Path
-from remax_pipeline.utils.logging import logger
+
 from bson import ObjectId
+
+from remax_pipeline.utils.logging import logger
 
 
 class CustomEncoder(json.JSONEncoder):

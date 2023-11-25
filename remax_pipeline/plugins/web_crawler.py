@@ -5,8 +5,9 @@ from concurrent.futures import ThreadPoolExecutor
 
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
+
 from remax_pipeline.services.fileio_service import write_to_json_local
-from remax_pipeline.services.selenium_service import get_driver, HTMLStackParser
+from remax_pipeline.services.selenium_service import HTMLStackParser, get_driver
 from remax_pipeline.utils.logging import logger
 
 
@@ -19,7 +20,7 @@ class RemaxExecutor:
 
         self.driver = get_driver()
 
-        url = f"https://www.remax.ca/on/toronto-real-estate?pageNumber=1"
+        url = "https://www.remax.ca/on/toronto-real-estate?pageNumber=1"
 
         self.driver.get(url)
 
@@ -127,8 +128,6 @@ class WebCrawler:
         """
 
     def _get_listing_description(self):
-
-        elements = self.driver.find_elements(By.XPATH, '//*[@id="description"]/summary/p')
 
         try:
             return self.driver.find_element(By.XPATH, '//*[@id="description"]/summary/p').text

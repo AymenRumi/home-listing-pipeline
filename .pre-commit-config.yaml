@@ -28,11 +28,8 @@ repos:
     hooks:
       - id: flake8
         args: ['--ignore=E501,W503,E203,E722']
+        exclude: '^.*__init__\.py$'  # Exclude __init__.py
 
-  - repo: https://github.com/ambv/black
-    rev: 22.3.0
-    hooks:
-      - id: black
 
 
 # repos:
