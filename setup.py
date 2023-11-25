@@ -12,10 +12,10 @@ setup(
     author_email="aymen.rumi@mail.mcgill.ca",
     description="Python package to scrape data from remax (can be used locally). Package is also meant to install to deploy web scraping ETL workers in Celery and for calling pipeline jobs to celery worker server.",
     long_description="""# Markdown supported!\n\n* Cheer\n* Celebrate\n""",
-    long_description_content_type="Package to set up data pipeline on AWS resources",
+    long_description_content_type="text/markdown",
     url="https://github.com/AymenRumi/remax-data-pipeline",  # Your project's homepage
     packages=find_packages(),
-    version="0.1.1",
+    version="0.1.11",
     # cmdclass=versioneer.get_cmdclass(),
     classifiers=[
         "Programming Language :: Python :: 3",
