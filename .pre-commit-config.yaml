@@ -29,12 +29,6 @@ repos:
       - id: flake8
         args: ['--ignore=E501,W503,E203,E722']
 
-  - repo: git://github.com/igorshubovych/markdownlint-cli
-    rev: v0.29.0
-    hooks:
-      - id: markdownlint
-        entry: markdownlint --config .markdownlint.json --ignore .github/*.md
-
 
 
 repos:
@@ -42,13 +36,3 @@ repos:
     rev: 22.3.0
     hooks:
       - id: black
-  - repo: git://github.com/pre-commit/pre-commit-hooks
-    rev: v4.0.1
-    hooks:
-      - id: check-ast
-      - id: check-json
-      - id: detect-aws-credentials
-      - id: check-yaml
-      - id: debug-statements
-      - id: fix-encoding-pragma
-      - id: trailing-whitespace
