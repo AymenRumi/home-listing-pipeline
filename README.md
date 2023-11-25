@@ -1,7 +1,7 @@
 # Data Pipeline for Real Estate Analytics
 
 
-## Project Overview:
+## Project Overview
 
 This project is `python library` used to implement an efficient `web scraping` `ETL` (Extract, Transform, Load) solution. 
 
