@@ -15,6 +15,7 @@ The library uses `Celery`, an `asynchronous task queue`, in conjunction with `Ra
 ## Diagram
 
 
+<img src="https://github.com/AymenRumi/remax-data-pipeline/blob/main/assets/diagram.png">
 
 
 ## Installation
