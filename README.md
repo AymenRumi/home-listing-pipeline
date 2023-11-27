@@ -12,6 +12,10 @@ Click [here](https://pypi.org/project/remax-pipeline/) to view package.
 The library uses `Celery`, an `asynchronous task queue`, in conjunction with `RabbitMQ` as a message broker. The workers, implemented with `multithreaded` selenium web drivers, allow for parallel celery workers running multithreaded scraping of listings from the REMAX website. The extracted data undergoes transformation and validation based on a predefined `data contract` before being stored in an `SQL database` for long term analytics. 
 
 
+## Diagram
+
+
+
 
 ## Installation
 
