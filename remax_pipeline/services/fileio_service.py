@@ -10,7 +10,7 @@ from remax_pipeline.utils.logging import logger
 class CustomEncoder(json.JSONEncoder):
     def default(self, o):
         if isinstance(o, ObjectId):
-            return str(o)  # Convert ObjectId to string
+            return str(o)
         return super().default(o)
 
 
