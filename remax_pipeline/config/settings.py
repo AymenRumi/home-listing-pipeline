@@ -15,7 +15,8 @@ class CelerySettings(Base):
     class Config:
         env_prefix = "CELERY_"
 
-class PostegresSettings:
+
+class PostegresSettings(Base):
     dbname: str
     user: str
     passsword: str
