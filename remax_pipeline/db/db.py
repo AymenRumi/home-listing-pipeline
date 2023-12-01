@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 import time
 from functools import wraps
 
@@ -89,5 +87,22 @@ def init_db(func):
             conn.close()
 
         return func(*args, **kwargs)
+
+    return wrapper
+
+
+def connect_db(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+
+        conn = connect()
+        conn.autocommit = True
+        try:
+            kwargs["conn"] = conn
+            result = func(*args, **kwargs)
+        finally:
+
+            conn.close()
+        return result
 
     return wrapper

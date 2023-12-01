@@ -1,1 +1,1 @@
-from .db import init_db,connect
+from .db import connect
