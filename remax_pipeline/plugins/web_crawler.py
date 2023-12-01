@@ -6,6 +6,7 @@ from concurrent.futures import ThreadPoolExecutor
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 
+from ..services import generate_uuid_from_string
 from ..services.fileio_service import write_to_json_local
 from ..services.selenium_service import HTMLStackParser, get_driver
 from ..utils.logging import logger
@@ -179,11 +180,9 @@ class WebCrawler:
         self.driver.get(url)
         try:
             return {
-                **{
-                    "location": self._get_listing_location(),
-                    "description": self._get_listing_description(),
-                },
+                **self._get_listing_location(),
                 **self._get_listing_price_details(),
+                "description": self._get_listing_description(),
             }
         except Exception as e:
             logger.warning(f"{e}, {url}")
@@ -199,11 +198,25 @@ class WebCrawler:
 
         lon = self.driver.find_element(By.XPATH, "/html/head/meta[11]").get_attribute("content")
 
-        return {"address": " ".join(parsed_element), "lat": lat, "lon": lon}
+        return {**self._parse_address(parsed_element), **{"lat": lat, "lon": lon}}
 
     def _clean_web_element(self, parsed_element):
-
         return [" ".join(i.split()) for i in parsed_element]
+
+    def _parse_address(self, parsed_element: list):
+
+        street_name = parsed_element[0]
+        city_details = parsed_element[1]
+        full_address = ", ".join(parsed_element)
+
+        return {
+            "id": str(generate_uuid_from_string(full_address)),
+            "full_address": full_address,
+            "street_name": street_name,
+            "city": city_details.split(", ")[0],
+            "province": city_details.split(", ")[1],
+            "postal_code": city_details.split(", ")[2],
+        }
 
     def _get_listing_price_details(self) -> dict:
 

@@ -1,11 +1,11 @@
-from dotenv import find_dotenv
-from pydantic import BaseSettings
+from dotenv import find_dotenv, load_dotenv
+from pydantic_settings import BaseSettings
 
 
 class Base(BaseSettings):
     class Config:
         env_file = find_dotenv()
-        env_file_encoding = "utf-8"
+        load_dotenv(env_file)
 
 
 class CelerySettings(Base):
@@ -19,9 +19,9 @@ class CelerySettings(Base):
 class PostegresSettings(Base):
     dbname: str
     user: str
-    passsword: str
+    password: str
     host: str
-    post: str
+    port: str
 
     class Config:
         env_prefix = "POSTGRES_"

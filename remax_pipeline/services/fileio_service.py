@@ -14,6 +14,13 @@ class CustomEncoder(json.JSONEncoder):
         return super().default(o)
 
 
+def read_json(filename: str):
+    path = Path(f"{os.getcwd()}/temp") / filename
+    with open(path, "r") as file:
+        data = json.load(file)
+    return data
+
+
 def write_to_json_local(result, filename: str):
 
     path = Path(f"{os.getcwd()}/temp") / filename
