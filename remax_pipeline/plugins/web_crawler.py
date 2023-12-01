@@ -2,6 +2,7 @@ import itertools
 import multiprocessing
 import re
 from concurrent.futures import ThreadPoolExecutor
+from datetime import date
 
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
@@ -183,6 +184,7 @@ class WebCrawler:
                 **self._get_listing_location(),
                 **self._get_listing_price_details(),
                 "description": self._get_listing_description(),
+                "listing_date": date.today(),
             }
         except Exception as e:
             logger.warning(f"{e}, {url}")
@@ -194,9 +196,9 @@ class WebCrawler:
             self.driver.find_element(By.CLASS_NAME, "listing-summary_addressAgentWrapper__0H3ys")
         )
 
-        lat = self.driver.find_element(By.XPATH, "/html/head/meta[10]").get_attribute("content")
+        lat = float(self.driver.find_element(By.XPATH, "/html/head/meta[10]").get_attribute("content"))
 
-        lon = self.driver.find_element(By.XPATH, "/html/head/meta[11]").get_attribute("content")
+        lon = float(self.driver.find_element(By.XPATH, "/html/head/meta[11]").get_attribute("content"))
 
         return {**self._parse_address(parsed_element), **{"lat": lat, "lon": lon}}
 
@@ -210,7 +212,7 @@ class WebCrawler:
         full_address = ", ".join(parsed_element)
 
         return {
-            "id": str(generate_uuid_from_string(full_address)),
+            "id": generate_uuid_from_string(full_address),
             "full_address": full_address,
             "street_name": street_name,
             "city": city_details.split(", ")[0],
@@ -227,15 +229,17 @@ class WebCrawler:
         )
 
         assert parsed_element[0][0] == "$"
-        price = re.sub("[^A-Za-z0-9]+", "", parsed_element[0])
+        price = float(re.sub("[^A-Za-z0-9]+", "", parsed_element[0]))
 
         assert "bed" in parsed_element
         bed_index = parsed_element.index("bed")
         bed = parsed_element[bed_index - 1]
+        bed = int(bed) if bed.isdigit() else None
 
         assert "bath" in parsed_element
         bath_index = parsed_element.index("bath")
         bath = parsed_element[bath_index - 1]
+        bath = int(bath) if bath.isdigit() else None
 
         property_type = parsed_element[-1]
 

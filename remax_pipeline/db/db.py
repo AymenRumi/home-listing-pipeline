@@ -27,18 +27,28 @@ def create_database(conn, dbname):
 
 def create_tables(conn):
     """Create home listing table"""
-    query = sql.SQL(
-        """
+
+    query = """
     CREATE TABLE IF NOT EXISTS {} (
-        id SERIAL PRIMARY KEY,
-        address VARCHAR(255) NOT NULL,
-        bedrooms INTEGER NOT NULL,
-        bathrooms DOUBLE PRECISION NOT NULL,
-        price DOUBLE PRECISION NOT NULL,
-        is_available BOOLEAN NOT NULL
+        id UUID PRIMARY KEY,
+        full_address VARCHAR(255),
+        street_name VARCHAR(255),
+        city VARCHAR(255),
+        province VARCHAR(255),
+        postal_code VARCHAR(10),
+        lat DOUBLE PRECISION,
+        lon DOUBLE PRECISION,
+        home_price DOUBLE PRECISION,
+        bed INTEGER,
+        bath INTEGER,
+        property_type VARCHAR(20),
+        description TEXT,
+        listing_date DATE -- Add the date column
+    );
+    """.format(
+        sql.Identifier("home_listings")
     )
-    """
-    ).format(sql.Identifier("home_listings"))
+
     with conn.cursor() as cursor:
         cursor.execute(query)
 
@@ -83,6 +93,7 @@ def init_db(func):
                 logger.task(f"Created {db_name}!")
             else:
                 logger.info(f"Database {db_name} already exists.")
+            create_tables(conn)
         finally:
             conn.close()
 
