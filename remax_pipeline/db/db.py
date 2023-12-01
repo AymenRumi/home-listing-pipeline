@@ -53,7 +53,6 @@ def connect():
         host=settings.host,
         port=settings.port,
     )
-
     return conn
 
 
