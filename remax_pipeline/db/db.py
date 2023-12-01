@@ -56,7 +56,7 @@ def connect():
     return conn
 
 
-def initialize_postgres(func):
+def init_db(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
         start = time.time()
