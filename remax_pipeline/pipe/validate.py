@@ -12,5 +12,5 @@ class Validate:
             return None
 
     @classmethod
-    def run_data_contract(cls, extracted_data: list):
+    def data_contract(cls, extracted_data: list):
         return [data for data in [Validate.catch(lambda: HomeListing(**data)) for data in extracted_data] if data]

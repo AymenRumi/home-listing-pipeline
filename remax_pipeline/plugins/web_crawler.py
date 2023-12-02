@@ -7,7 +7,7 @@ from datetime import date
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 
-from ..services import generate_uuid_from_string
+from ..services import generate_listing_primary_key, generate_uuid_from_string
 from ..services.fileio_service import write_to_json_local
 from ..services.selenium_service import HTMLStackParser, get_driver
 from ..utils.logging import logger
@@ -87,7 +87,7 @@ class RemaxExecutor:
 
         return listing
 
-    def get_multipage_listing(self, pages, output=None, filename=None):
+    def get_multipage_listing(self, pages, output=False, filename=None):
 
         if self.multithreaded:
             logger.task("Running with threads...")
@@ -100,28 +100,9 @@ class RemaxExecutor:
             result = list(itertools.chain.from_iterable([self.task(i) for i in pages]))
 
         if output:
-            # write_to_json_local(
-            #     result,
-            #     f"output_{'multithreadeded' if self.multithreadeded else 'sequential'}.json",
-            # )
             write_to_json_local(result, filename)
 
         return result
-
-    def run(self):
-        pass
-
-        """
-        Current database listings:
-
-        -> run pipeline and get list
-
-        -> see which listings were not in the queried listing
-
-
-        -> update to Closed
-
-        """
 
 
 class WebCrawler:
@@ -151,23 +132,6 @@ class WebCrawler:
         self.driver.close()
 
         return result
-
-    def process_listing(self):
-
-        """
-        i)
-            -> Listing already exists
-                -> Price is different
-                    -> Add listing with price
-                -> Price is same
-                    -> Do nothing
-
-        ii)
-
-            -> Listing doesn't exist
-                -> Add listing
-
-        """
 
     def _get_listing_description(self):
 
@@ -212,7 +176,8 @@ class WebCrawler:
         full_address = ", ".join(parsed_element)
 
         return {
-            "id": generate_uuid_from_string(full_address),
+            "id": generate_listing_primary_key(full_address),
+            "address_id": generate_uuid_from_string(full_address),
             "full_address": full_address,
             "street_name": street_name,
             "city": city_details.split(", ")[0],

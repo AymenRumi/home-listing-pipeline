@@ -28,9 +28,11 @@ def create_database(conn, dbname):
 def create_tables(conn):
     """Create home listing table"""
 
-    query = """
+    query = sql.SQL(
+        """
     CREATE TABLE IF NOT EXISTS {} (
         id UUID PRIMARY KEY,
+        address_id UUID,
         full_address VARCHAR(255),
         street_name VARCHAR(255),
         city VARCHAR(255),
@@ -43,11 +45,10 @@ def create_tables(conn):
         bath INTEGER,
         property_type VARCHAR(20),
         description TEXT,
-        listing_date DATE -- Add the date column
+        listing_date DATE
     );
-    """.format(
-        sql.Identifier("home_listings")
-    )
+    """
+    ).format(sql.Identifier("home_listings"))
 
     with conn.cursor() as cursor:
         cursor.execute(query)
@@ -88,11 +89,11 @@ def init_db(func):
 
         try:
             if not database_exists(conn, db_name):
-                logger.debug(f"Database {db_name} does not exist! Will create it.")
+                logger.debug(f"Database '{db_name}' does not exist! Will create it.")
                 create_database(conn, db_name)
-                logger.task(f"Created {db_name}!")
+                logger.task(f"Created '{db_name}'!")
             else:
-                logger.info(f"Database {db_name} already exists.")
+                logger.info(f"Database '{db_name}' already exists.")
             create_tables(conn)
         finally:
             conn.close()
@@ -106,13 +107,14 @@ def connect_db(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
 
+        logger.debug("Connecting to database")
         conn = connect()
         conn.autocommit = True
         try:
             kwargs["conn"] = conn
             result = func(*args, **kwargs)
         finally:
-
+            logger.debug("Closing")
             conn.close()
         return result
 
