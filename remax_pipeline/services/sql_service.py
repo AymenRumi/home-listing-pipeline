@@ -13,6 +13,9 @@ def scd():
 
 @connect_db
 def insert_listings(listings: List[HomeListing], conn=None):
+
+    success = 0
+    failure = 0
     with conn.cursor() as cursor:
         for listing in listings:
             query = sql.SQL(
@@ -44,8 +47,12 @@ def insert_listings(listings: List[HomeListing], conn=None):
 
             try:
                 cursor.execute(query, data)
+                success += 1
             except IntegrityError as e:
                 logger.warning(f"IntegrityError: {e}")
+                failure += 1
+
+    return {"success": success, "failure": failure, "success_rate": success / (success + failure)}
 
 
 def insert_run_log():

@@ -24,7 +24,7 @@ class HomeListing(BaseSettings):
     postal_code: constr(strip_whitespace=True, min_length=7, max_length=7, pattern=r"^[A-Za-z]\d[A-Za-z] \d[A-Za-z]\d$")
     lat: float = Field(..., ge=42, le=83)
     lon: float = Field(..., ge=-141, le=52.6)
-    home_price: Optional[float]
+    home_price: float = Field(..., ge=300000)
     bed: Optional[PositiveInt]
     bath: Optional[PositiveInt]
     property_type: Optional[PropertyType]

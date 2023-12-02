@@ -1,6 +1,13 @@
-class Load:
-    def __init__(self, pages: list) -> None:
-        pass
+import time
+from typing import List
 
-    def push_to_db(self):
-        pass
+from ..models import HomeListing
+from ..services.sql_service import insert_listings
+
+
+class Load:
+    @classmethod
+    def push_to_db(cls, listings: List[HomeListing], start_time: float) -> dict:
+        response = insert_listings(listings)
+        response["time"] = time.time() - start_time
+        return response
