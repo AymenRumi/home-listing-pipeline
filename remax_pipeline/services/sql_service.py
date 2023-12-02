@@ -14,8 +14,7 @@ def scd():
 @connect_db
 def insert_listings(listings: List[HomeListing], conn=None):
 
-    success = 0
-    failure = 0
+    success, failure = 0, 0
     with conn.cursor() as cursor:
         for listing in listings:
             query = sql.SQL(

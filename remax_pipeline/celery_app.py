@@ -1,8 +1,9 @@
 from celery import Celery
 
+from .config.settings import CelerySettings
 from .tasks.etl_worker import start_worker
 
-celery_app = Celery("app", broker="pyamqp://myuser:mypassword@localhost:5672//")
+celery_app = Celery("app", broker=CelerySettings().rabbitmq_broker)
 
 
 @celery_app.task
