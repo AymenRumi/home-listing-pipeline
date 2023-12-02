@@ -124,10 +124,6 @@ class WebCrawler:
         logger.info(listings)
         result = [self.get_listing_data(i) for i in listings]
 
-        """
-         Should give a summary of what happened
-        """
-
         logger.info("Closing page instance")
         self.driver.close()
 
