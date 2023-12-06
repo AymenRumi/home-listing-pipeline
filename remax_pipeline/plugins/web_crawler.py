@@ -168,7 +168,7 @@ class WebCrawler:
     def _parse_address(self, parsed_element: list):
 
         street_name = parsed_element[0]
-        city_details = parsed_element[1]
+        city_details = parsed_element[1].split(", ")
         full_address = ", ".join(parsed_element)
 
         return {
@@ -176,9 +176,9 @@ class WebCrawler:
             "address_id": generate_uuid_from_string(full_address),
             "full_address": full_address,
             "street_name": street_name,
-            "city": city_details.split(", ")[0],
-            "province": city_details.split(", ")[1],
-            "postal_code": city_details.split(", ")[2],
+            "city": city_details[0],
+            "province": city_details[1],
+            "postal_code": city_details[2],
         }
 
     def _get_listing_price_details(self) -> dict:
