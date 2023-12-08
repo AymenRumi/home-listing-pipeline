@@ -61,7 +61,7 @@ def insert_run_log():
 @connect_db
 def select_all_listings(conn=None) -> List[Dict]:
     with conn.cursor(cursor_factory=extras.DictCursor) as cursor:
-        sql_query = "SELECT * FROM {}".format(sql.Identifier("home_listings"))
+        sql_query = sql.SQL("SELECT * FROM {}").format(sql.Identifier("home_listings"))
         cursor.execute(sql_query)
         result = cursor.fetchall()
 
