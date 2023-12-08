@@ -38,19 +38,22 @@ class RemaxExecutor:
     def _create_bins(n, m):
         return [list(range(i, min(i + m, n + 1))) for i in range(1, n + 1, m)]
 
-    def get_distributed_workload(self, m: int = 12, type: str = "bin"):
+    def get_workload(self, m: int = 12, distribution_type: str = "bin", n=None):
 
-        if type not in ["bin", "chunk"]:
+        if distribution_type not in ["bin", "chunk"]:
             raise Exception("Distribution type should be either 'bin' or 'chunk")
 
-        total_pages = self.get_total_pages()
+        if n is None:
+            total_pages = self.get_total_pages()
+        else:
+            total_pages = n
 
         action = {
             "bin": RemaxExecutor._create_bins,
             "chunk": RemaxExecutor._create_chunks,
         }
 
-        return action(total_pages, m)
+        return action[distribution_type](total_pages, m)
 
     def get_total_pages(self):
 

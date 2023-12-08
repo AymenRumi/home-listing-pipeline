@@ -17,7 +17,7 @@ def insert_listings(listings: List[HomeListing], conn=None):
     success, failure = 0, 0
     with conn.cursor() as cursor:
         for listing in listings:
-            sql_query = sql.SQL(
+            query = sql.SQL(
                 """
             INSERT INTO {}
             (id, address_id, full_address, street_name, city, province, postal_code, lat, lon, home_price, bed, bath, property_type, description, listing_date)
@@ -45,7 +45,7 @@ def insert_listings(listings: List[HomeListing], conn=None):
             )
 
             try:
-                cursor.execute(sql_query, data)
+                cursor.execute(query, data)
                 success += 1
             except IntegrityError as e:
                 logger.warning(f"IntegrityError: {e}")
@@ -61,7 +61,7 @@ def insert_run_log():
 @connect_db
 def select_all_listings(conn=None) -> List[Dict]:
     with conn.cursor(cursor_factory=extras.DictCursor) as cursor:
-        sql_query = sql.SQL("SELECT * FROM {}").format(sql.Identifier("home_listings"))
-        cursor.execute(sql_query)
+        query = sql.SQL("SELECT * FROM {}").format(sql.Identifier("home_listings"))
+        cursor.execute(query)
         result = [dict(row) for row in cursor.fetchall()]
     return result

@@ -7,5 +7,5 @@ class Extract:
         return RemaxExecutor(multithreaded=multithreaded).get_multipage_listing(pages=pages, output=False)
 
     @staticmethod
-    def get_total_pages() -> int:
-        return RemaxExecutor().get_total_pages()
+    def get_workload() -> int:
+        return RemaxExecutor().get_distributed_workload(m=3, type="bin", n=10)

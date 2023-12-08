@@ -28,7 +28,7 @@ def create_database(conn, dbname):
 def create_tables(conn):
     """Create home listing table"""
 
-    sql_query = sql.SQL(
+    query = sql.SQL(
         """
     CREATE TABLE IF NOT EXISTS {} (
         id UUID PRIMARY KEY,
@@ -51,7 +51,7 @@ def create_tables(conn):
     ).format(sql.Identifier("home_listings"))
 
     with conn.cursor() as cursor:
-        cursor.execute(sql_query)
+        cursor.execute(query)
 
 
 def connect():
