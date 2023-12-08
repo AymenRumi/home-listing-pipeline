@@ -26,7 +26,7 @@ pip install remax_pipeline
 
 ### Environment Variables 
 ```bash
-# These must be set before importing from the module
+# These must be set before importing from the module (can also be set with .env file)
 
 export POSTGRES_DBNAME="remaxpipeline"
 export POSTGRES_USER="myuser"
