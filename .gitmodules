@@ -1,0 +1,3 @@
+[submodule "aws-deployment"]
+	path = aws-deployment
+	url = https://github.com/AymenRumi/remax-pipeline-deployment.git
