@@ -36,13 +36,7 @@ class RemaxExecutor:
 
     @staticmethod
     def _create_bins(n, m):
-
-        chunks = []
-
-        for i in range(1, n + 1, m):
-            chunks.append(list(range(i, min(i + m, n + 1))))
-
-        return chunks
+        return [list(range(i, min(i + m, n + 1))) for i in range(1, n + 1, m)]
 
     def get_distributed_workload(self, m: int = 12, type: str = "bin"):
 
