@@ -1,6 +1,6 @@
-from typing import List
+from typing import Dict, List
 
-from psycopg2 import IntegrityError, sql
+from psycopg2 import IntegrityError, extras, sql
 
 from ..db import connect_db
 from ..models import HomeListing
@@ -17,7 +17,7 @@ def insert_listings(listings: List[HomeListing], conn=None):
     success, failure = 0, 0
     with conn.cursor() as cursor:
         for listing in listings:
-            query = sql.SQL(
+            sql_query = sql.SQL(
                 """
             INSERT INTO {}
             (id, address_id, full_address, street_name, city, province, postal_code, lat, lon, home_price, bed, bath, property_type, description, listing_date)
@@ -45,7 +45,7 @@ def insert_listings(listings: List[HomeListing], conn=None):
             )
 
             try:
-                cursor.execute(query, data)
+                cursor.execute(sql_query, data)
                 success += 1
             except IntegrityError as e:
                 logger.warning(f"IntegrityError: {e}")
@@ -56,3 +56,13 @@ def insert_listings(listings: List[HomeListing], conn=None):
 
 def insert_run_log():
     pass
+
+
+@connect_db
+def select_all_listings(conn=None) -> List[Dict]:
+    with conn.cursor(cursor_factory=extras.DictCursor) as cursor:
+        sql_query = "SELECT * FROM {}".format(sql.Identifier("home_listings"))
+        cursor.execute(sql_query)
+        result = cursor.fetchall()
+
+    return result

@@ -7,17 +7,14 @@ services:
       RABBITMQ_DEFAULT_USER: myuser
       RABBITMQ_DEFAULT_PASS: mypassword
     ports:
-      - "5672:5672" # RabbitMQ
-      - "15672:15672" # Management interface
+      - "5672:5672"
+      - "15672:15672" 
 
   postgres:
     image: postgres
-    # volumes:
-    #   - db-data:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: myuser
       POSTGRES_PASSWORD: mypassword
       POSTGRES_DB: remaxpipeline
-      
     ports:
       - 5432:5432

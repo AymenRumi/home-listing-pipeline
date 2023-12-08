@@ -9,5 +9,5 @@ class Load:
     @staticmethod
     def push_to_db(listings: List[HomeListing], start_time: float) -> dict:
         response = insert_listings(listings)
-        response["time"] = time.time() - start_time
+        response["time(s)"] = time.time() - start_time
         return response
