@@ -28,9 +28,6 @@ pip install remax_pipeline
 ```bash
 # These must be set before importing from the module (can also be set with .env file)
 
-# Add to appropriate values for production
-
-
 export POSTGRES_DBNAME="remaxpipeline"
 export POSTGRES_USER="myuser"
 export POSTGRES_PASSWORD="mypassword"
