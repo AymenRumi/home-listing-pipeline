@@ -23,6 +23,22 @@ The library uses `Celery`, an `asynchronous task queue`, in conjunction with `Ra
 ```bash
 pip install remax_pipeline
 ```
+
+### Environment Variables 
+```bash
+# These must be set before importing from the module
+
+export POSTGRES_DBNAME="remaxpipeline"
+export POSTGRES_USER="myuser"
+export POSTGRES_PASSWORD="mypassword"
+export POSTGRES_HOST="localhost"
+export POSTGRES_PORT="5432"
+
+export CELERY_RABBITMQ_BROKER="amqp://myuser:mypassword@localhost:5672/"
+export CELERY_APP_NAME="celery_app"
+
+```
+
 <!-- 
 ##  Key Features:
 
