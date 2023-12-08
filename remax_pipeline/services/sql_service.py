@@ -63,6 +63,6 @@ def select_all_listings(conn=None) -> List[Dict]:
     with conn.cursor(cursor_factory=extras.DictCursor) as cursor:
         sql_query = sql.SQL("SELECT * FROM {}").format(sql.Identifier("home_listings"))
         cursor.execute(sql_query)
-        result = cursor.fetchall()
+        result = [dict(row) for row in cursor.fetchall()]
 
     return result
