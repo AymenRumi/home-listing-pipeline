@@ -1,4 +1,5 @@
 amqp==5.2.0
+annotated-types==0.6.0
 attrs==23.1.0
 backports.zoneinfo==0.2.1
 billiard==4.2.0
@@ -26,6 +27,9 @@ platformdirs==4.1.0
 pre-commit==3.5.0
 prompt-toolkit==3.0.41
 psycopg2-binary==2.9.9
+pydantic==2.5.2
+pydantic-settings==2.1.0
+pydantic_core==2.14.5
 pymongo==4.6.0
 PySocks==1.7.1
 python-dateutil==2.8.2

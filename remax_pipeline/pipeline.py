@@ -11,3 +11,7 @@ def run(dev: bool = False):
     action = {True: run_etl_worker, False: run_etl_worker.delay}
 
     return action[dev](pages)
+
+
+def run_local(pages: list = [1, 2]):
+    run_etl_worker()
