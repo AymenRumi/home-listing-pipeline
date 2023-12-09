@@ -1,4 +1,4 @@
-from .celery_app import run_etl_worker
+from .celery import run_etl_worker
 from .pipe import Extract
 
 
