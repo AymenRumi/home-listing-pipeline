@@ -41,7 +41,7 @@ class RemaxExecutor:
     def get_workload(self, m: int = 12, distribution_type: str = "bin", n=None):
 
         if distribution_type not in ["bin", "chunk"]:
-            raise Exception("Distribution type should be either 'bin' or 'chunk")
+            raise Exception("Distribution type should be either 'bin' or 'chunk'")
 
         if n is None:
             total_pages = self.get_total_pages()
