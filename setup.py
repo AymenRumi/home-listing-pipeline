@@ -15,7 +15,7 @@ setup(
     long_description_content_type="text/markdown",
     url="https://github.com/AymenRumi/remax-data-pipeline",  # Your project's homepage
     packages=find_packages(),
-    version="0.1.14",
+    version="0.1.15",
     # cmdclass=versioneer.get_cmdclass(),
     classifiers=[
         "Programming Language :: Python :: 3",
