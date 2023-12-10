@@ -21,7 +21,7 @@ The library uses `Celery`, an `asynchronous task queue`, in conjunction with `Ra
 ## Installation
 
 ```bash
-pip install remax_pipeline
+pip install remax-pipeline
 ```
 
 ### Environment Variables 
