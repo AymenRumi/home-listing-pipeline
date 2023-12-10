@@ -39,12 +39,30 @@ export CELERY_APP_NAME="celery_app"
 
 ```
 
+
+## Local Testing
+```bash
+docker-compose up 
+```
+
+```python
+from remax_pipeline import pipeline, sql_service as sql
+
+# Run the pipeline
+pipeline.run(with_celery=False)
+
+# Verify listings in db
+sql.select_all_listings()
+
+```
+
 ## Running Celery Worker
 ```bash
 # Once remax-pipeline is pip installed, you can run command
 
 celery -A remax_pipeline.celery worker --loglevel=info
 ```
+
 
 
 <!-- 
