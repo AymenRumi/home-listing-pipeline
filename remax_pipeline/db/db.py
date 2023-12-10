@@ -1,5 +1,5 @@
+import sys
 import time
-from functools import wraps
 
 import psycopg2
 from psycopg2 import sql
@@ -7,7 +7,7 @@ from psycopg2 import sql
 from ..config.settings import PostegresSettings
 from ..utils.logging import logger
 
-TIMEOUT = 10000
+TIMEOUT = 1000
 
 settings = PostegresSettings()
 
@@ -51,7 +51,10 @@ def create_tables(conn):
     ).format(sql.Identifier("home_listings"))
 
     with conn.cursor() as cursor:
-        cursor.execute(query)
+        try:
+            cursor.execute(query)
+        except Exception as e:
+            logger.warning(e)
 
 
 def connect():
@@ -65,59 +68,36 @@ def connect():
     return conn
 
 
-def init_db(func):
-    @wraps(func)
-    def wrapper(*args, **kwargs):
-        start = time.time()
+def initialize_database():
 
-        logger.info(settings)
+    start = time.time()
+    logger.info(settings)
 
-        while True:
-            try:
-                conn = connect()
-                conn.autocommit = True
-                logger.task("Connected to database")
-                break
-            except psycopg2.OperationalError as e:
-                logger.warning(e)
-                logger.debug("Postgres not available yet.. sleeping")
-                time.sleep(1)
-
-                if time.time() - start > TIMEOUT:
-                    logger.warning("Exiting...")
-                    return
-
-        db_name = settings.dbname
-
+    while True:
         try:
-            if not database_exists(conn, db_name):
-                logger.debug(f"Database '{db_name}' does not exist! Will create it.")
-                create_database(conn, db_name)
-                logger.task(f"Created '{db_name}'!")
-            else:
-                logger.info(f"Database '{db_name}' already exists.")
-            create_tables(conn)
-        finally:
-            conn.close()
+            conn = connect()
+            conn.autocommit = True
+            logger.task("Connected to database")
+            break
+        except psycopg2.OperationalError as e:
+            logger.warning(e)
+            logger.debug("Postgres not available yet.. sleeping")
+            time.sleep(1)
 
-        return func(*args, **kwargs)
+            if time.time() - start > TIMEOUT:
+                logger.warning("Exiting...")
+                sys.exit(-1)
 
-    return wrapper
+    db_name = settings.dbname
 
-
-def connect_db(func):
-    @wraps(func)
-    def wrapper(*args, **kwargs):
-
-        logger.debug("Connecting to database")
-        conn = connect()
-        conn.autocommit = True
-        try:
-            kwargs["conn"] = conn
-            result = func(*args, **kwargs)
-        finally:
-            logger.debug("Closing")
-            conn.close()
-        return result
-
-    return wrapper
+    try:
+        if not database_exists(conn, db_name):
+            logger.debug(f"Database '{db_name}' does not exist! Will create it.")
+            create_database(conn, db_name)
+            logger.task(f"Created '{db_name}'!")
+        else:
+            logger.info(f"Database '{db_name}' already exists.")
+        create_tables(conn)
+    finally:
+        conn.close()
+    return

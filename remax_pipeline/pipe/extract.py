@@ -8,4 +8,4 @@ class Extract:
 
     @staticmethod
     def get_workload() -> int:
-        return RemaxExecutor().get_distributed_workload(m=3, type="bin", n=10)
+        return RemaxExecutor().get_workload(m=3, distribution_type="bin", n=10)
