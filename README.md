@@ -49,9 +49,11 @@ docker-compose up
 from remax_pipeline import pipeline, sql_service as sql
 
 # Run the pipeline
+
 pipeline.run(with_celery=False)
 
 # Verify listings in db
+
 sql.select_all_listings()
 
 ```
