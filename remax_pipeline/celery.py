@@ -12,6 +12,5 @@ app = Celery("app", broker=CelerySettings().rabbitmq_broker)
 @init_db
 def run_etl_task(pages: list):
 
-    logger.task(f"starting task for pages{pages}")
-    result = start_task(pages)
-    print(result)
+    logger.info(f"starting task for pages{pages}")
+    start_task(pages)

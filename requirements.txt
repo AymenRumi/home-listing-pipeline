@@ -1,7 +1,6 @@
 amqp==5.2.0
 annotated-types==0.6.0
 attrs==23.1.0
-backports.zoneinfo==0.2.1
 billiard==4.2.0
 celery==5.3.6
 certifi==2023.11.17
