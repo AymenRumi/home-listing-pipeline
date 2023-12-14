@@ -24,7 +24,7 @@ The library uses `Celery`, an `asynchronous task queue`, in conjunction with `Ra
 pip install remax-pipeline
 ```
 
-### Environment Variables 
+## Environment Variables 
 ```bash
 # These must be set before importing from the module (can also be set with .env file)
 
@@ -38,6 +38,34 @@ export CELERY_RABBITMQ_BROKER="amqp://myuser:mypassword@localhost:5672/"
 export CELERY_APP_NAME="celery_app"
 
 ```
+
+
+## Local Testing
+```bash
+docker-compose up 
+```
+
+```python
+from remax_pipeline import pipeline, sql_service as sql
+
+# Run the pipeline
+
+pipeline.run(with_celery=False)
+
+# Verify listings in db
+
+sql.select_all_listings()
+
+```
+
+## Running Celery Worker
+```bash
+# Once remax-pipeline is pip installed, you can run command
+
+celery -A remax_pipeline.celery worker --loglevel=info
+```
+
+
 
 <!-- 
 ##  Key Features:
