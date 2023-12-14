@@ -1,3 +1,6 @@
+import boto3
+
+
 class SecretsManager:
     def __init__(self, dev: bool = False):
 
@@ -12,3 +15,4 @@ class SecretsManager:
 
     def _set_env_variables(self):
         pass
+
