@@ -28,7 +28,7 @@ class RemaxExecutor:
         for i in range(0, m):
             start = i * chunk_size
             end = start + chunk_size
-            if i == m - 1:  #
+            if i == m - 1:
                 end += remainder
             chunks.append(list(range(start + 1, end + 1)))
 
