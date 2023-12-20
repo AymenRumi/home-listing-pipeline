@@ -3,6 +3,8 @@
 
 ## Project Overview
 
+### Overview
+
 This project is `python library` used to implement an efficient `web scraping` `ETL` (Extract, Transform, Load) solution. 
 
 This project is published as a  package in `PyPI` to pip install and use to automate the ETL process via scheduled job and deploying celery workers.
@@ -14,7 +16,7 @@ The library uses `Celery`, an `asynchronous task queue`, in conjunction with `Ra
 
 ### AWS Infrastructure
 
-Project infrastrcuture and deployment is independent, it is reliant on the remax-pipeline library.
+Project `infrastructure` and `deployment` is independent, it is reliant on the remax-pipeline library.
 
 Code for pipeline infrastructure deployment available as submodule to this repo, click [here](https://github.com/AymenRumi/remax-pipeline-deployment) 
 
