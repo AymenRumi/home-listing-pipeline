@@ -12,9 +12,9 @@ Click [here](https://pypi.org/project/remax-pipeline/) to view package.
 The library uses `Celery`, an `asynchronous task queue`, in conjunction with `RabbitMQ` as a message broker. The workers, implemented with `multithreaded` selenium web drivers, allow for parallel celery workers running multithreaded scraping of listings from the REMAX website. The extracted data undergoes transformation and validation based on a predefined `data contract` before being stored in an `SQL database` for long term analytics. 
 
 
-## AWS Infrastructure
+## AWS Deploymeny
 
-Project infrastrcuture and deployment is independent, it is reliant on the remax-pipeline library.
+Project infrastructure and deployment is independent, it is reliant on the remax-pipeline library.
 
 Code for pipeline infrastructure deployment available as submodule to this repo, click [here](https://github.com/AymenRumi/remax-pipeline-deployment) 
 
