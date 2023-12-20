@@ -18,7 +18,7 @@ The library uses `Celery`, an `asynchronous task queue`, in conjunction with `Ra
 
 Project `infrastructure` and `deployment` is independent, it is reliant on the remax-pipeline library.
 
-Code for pipeline infrastructure deployment available as submodule to this repo, click [here](https://github.com/AymenRumi/remax-pipeline-deployment) 
+Code for pipeline infrastructure deployment available as submodule to this repo, click [here](https://github.com/AymenRumi/remax-pipeline-deployment) to view repo.
 
 
 ## Project Diagram
