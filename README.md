@@ -14,7 +14,7 @@ The library uses `Celery`, an `asynchronous task queue`, in conjunction with `Ra
 
 ## AWS Infrastructure
 
-Project infrastrcuture and deploymeny is independent, it is reliabnt on the remax-pipeline library.
+Project infrastrcuture and deployment is independent, it is reliant on the remax-pipeline library.
 
 Code for pipeline infrastructure deployment available as submodule to this repo, click [here](https://github.com/AymenRumi/remax-pipeline-deployment) 
 
