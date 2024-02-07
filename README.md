@@ -21,10 +21,18 @@ Project `infrastructure` and `deployment` is independent, it is reliant on the r
 Code for pipeline infrastructure deployment available as submodule to this repo, click [here](https://github.com/AymenRumi/remax-pipeline-deployment) to view repo.
 
 
-## Project Diagram
+## PyPi Package Diagram
 
 
 <img src="https://github.com/AymenRumi/remax-data-pipeline/blob/main/assets/diagram.png">
+
+
+
+## Pipeline Deployment Diagram
+
+
+<img src="https://github.com/AymenRumi/remax-data-pipeline/blob/main/assets/deployment_diagram.png">
+
 
 
 ## Installation

@@ -1,14 +1,14 @@
 version: '3.7'
 
 services:
-  rabbitmq:
-    image: "rabbitmq:3-management"
-    environment:
-      RABBITMQ_DEFAULT_USER: myuser
-      RABBITMQ_DEFAULT_PASS: mypassword
-    ports:
-      - "5672:5672"
-      - "15672:15672" 
+  # rabbitmq:
+  #   image: "rabbitmq:3-management"
+  #   environment:
+  #     RABBITMQ_DEFAULT_USER: myuser
+  #     RABBITMQ_DEFAULT_PASS: mypassword
+  #   ports:
+  #     - "5672:5672"
+  #     - "15672:15672" 
 
   postgres:
     image: postgres

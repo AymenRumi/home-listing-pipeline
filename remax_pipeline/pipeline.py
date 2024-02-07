@@ -18,4 +18,4 @@ def run_local(dev: bool = False):
 
     action = {True: run_etl_task, False: run_etl_task.delay}
 
-    return action[dev](pages)
+    return [action[dev](pages) for i in range(10)]
